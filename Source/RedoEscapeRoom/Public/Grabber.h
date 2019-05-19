@@ -28,11 +28,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
-	void GetPlayerViewPointVectors();
-	FVector GetLineTraceEnd();
-	void GetPhysicsHandle();
-	void GetInputControl();
-	void Grab();
+	
 
 private:
 	FVector PlayerViewPointLocation;
@@ -41,6 +37,36 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Interactions)
 		float PlayerReach = 100.0f;
+	
+	AActor* ActorHit = nullptr;
+
+	//Find assumed attached physics handle component
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	void GetPhysicsHandle();
+
+	//Setup assumed attached input component
 	UInputComponent* InputComponent = nullptr;
+	void GetInputControl();
+
+	//Return hit  for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
+
+	//Check if Grab found an actor, and if so, move it.
+	void IfGrabbingThenMove();
+
+	void GetLineTraceHit(FHitResult& Hit, FCollisionQueryParams& TraceParams);
+
+	void DrawMyDebugTrace();
+
+	//Figures out the actor hit by the line trace
+	void GetLineTraceHitActor(FHitResult& Hit);
+
+	//Finds the current player vector and draws a line the length of PlayerReach
+	FVector GetLineTraceEnd();
+
+	//It grabs a physics body collision object transform and rotation
+	void Grab();
+
+	//It drops a physics body collision object
+	void Release();
 };
