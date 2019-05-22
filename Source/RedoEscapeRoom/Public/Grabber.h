@@ -36,7 +36,7 @@ private:
 	FVector LineTraceEndDraw = FVector(0.0f, 0.0f, 0.0f);
 
 	UPROPERTY(EditAnywhere, Category = Interactions)
-		float PlayerReach = 100.0f;
+		float PlayerReach = 150.0f;
 	
 	AActor* ActorHit = nullptr;
 
